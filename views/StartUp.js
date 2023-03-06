@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Stack, Text, Heading, Divider } from "native-base";
-import JoinRoomForm from "../components/JoinRoomForm";
-import LoginNavigateButtons from "../components/LoginNavigateButtons";
-import LoginForm from "../components/LoginForm";
+import { Box, Stack, Text, Heading } from "native-base";
+import RegisterUser from "../components/RegisterUser";
+import RoomContainer from "../components/RoomContainer";
 
-const Login = () => {
+const StartUp = () => {
   return (
     <Box
       flex={1}
@@ -20,12 +19,13 @@ const Login = () => {
           Join room and communicate with your friends
         </Text>
       </Stack>
-      <LoginForm />
-      {/* <JoinRoomForm />
-      <Divider my={"15px"} w="80%" maxW="350px" />
-      <LoginNavigateButtons /> */}
+      {/* sign up and login components */}
+      {/* <RegisterUser /> */}
+
+      {/* join room options */}
+      <RoomContainer />
     </Box>
   );
 };
 
-export default Login;
+export default StartUp;

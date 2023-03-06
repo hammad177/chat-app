@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Login from "../views/Login";
+import StartUp from "../views/StartUp";
 import CreateRoom from "../views/CreateRoom";
 import Loading from "../components/Loading";
 import SearchRoom from "../views/SearchRoom";
@@ -29,13 +29,13 @@ const MyStack = () => {
   return (
     <NavigationContainer fallback={Loading}>
       <Stack.Navigator
-        initialRouteName="login"
+        initialRouteName="startup"
         screenOptions={horizontalAnimation}
       >
         <Stack.Screen
-          name="login"
+          name="startup"
           options={{ headerShown: false }}
-          component={Login}
+          component={StartUp}
         />
         <Stack.Screen
           options={{ headerTitle: "Create New Room" }}

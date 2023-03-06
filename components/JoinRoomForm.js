@@ -6,79 +6,21 @@ import {
   Stack,
   Text,
   IconButton,
-  HStack,
-  Pressable,
 } from "native-base";
 import ClipBoardIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Clipboard from "expo-clipboard";
-import { useFormik } from "formik";
-import * as yup from "yup";
 
-const JoinRoomForm = () => {
+const JoinRoomForm = ({
+  handleChange,
+  handleSubmit,
+  values,
+  errors,
+  isPublic,
+  setFieldValue,
+}) => {
   const RoomPasswordRef = useRef();
-  // form initial state
-  const initialValues = {
-    room_code: "",
-    password: "",
-    is_public: true,
-  };
-
-  const validationSchema = yup.object().shape({
-    room_code: yup.string().required("enter valid room code"),
-    password: yup.string().when("is_public", {
-      is: false,
-      then: yup.string().required("enter room password"),
-    }),
-    is_public: yup.boolean(),
-  });
-
-  const onSubmit = (value, { resetForm }) => {
-    console.log(value);
-  };
-
-  const { handleChange, setFieldValue, handleSubmit, values, errors } =
-    useFormik({
-      initialValues,
-      validationSchema,
-      validateOnChange: false,
-      validateOnBlur: false,
-      onSubmit,
-    });
-  const changeRoom = (val) => setFieldValue("is_public", val);
   return (
-    <Stack space={5} w="80%" maxW={"350px"} mx="auto">
-      <HStack>
-        <Pressable
-          w="50%"
-          backgroundColor={values?.is_public ? "#5984de" : "blueGray.200"}
-          alignItems="center"
-          py="10px"
-          borderRadius="sm"
-          onPress={() => changeRoom(true)}
-        >
-          <Text
-            fontSize="xl"
-            color={values?.is_public ? "#fff" : "blueGray.500"}
-          >
-            PUBLIC
-          </Text>
-        </Pressable>
-        <Pressable
-          w="50%"
-          backgroundColor={!values?.is_public ? "#5984de" : "blueGray.200"}
-          alignItems="center"
-          py="10px"
-          borderRadius="sm"
-          onPress={() => changeRoom(false)}
-        >
-          <Text
-            fontSize="xl"
-            color={!values?.is_public ? "#fff" : "blueGray.500"}
-          >
-            PRIVATE
-          </Text>
-        </Pressable>
-      </HStack>
+    <Stack space={5} w="100%">
       <FormControl isInvalid={errors.room_code}>
         <Input
           selectionColor={"#379"}
@@ -87,14 +29,12 @@ const JoinRoomForm = () => {
           size={"lg"}
           placeholder="Room code ..."
           InputRightElement={<ClipBoardButton setFieldValue={setFieldValue} />}
-          returnKeyType={values?.is_public ? "done" : "next"}
-          blurOnSubmit={values?.is_public ? true : false}
-          onSubmitEditing={() =>
-            !values?.is_public && RoomPasswordRef.current.focus()
-          }
+          returnKeyType={isPublic ? "done" : "next"}
+          blurOnSubmit={isPublic ? true : false}
+          onSubmitEditing={() => !isPublic && RoomPasswordRef.current.focus()}
         />
       </FormControl>
-      {!values?.is_public ? (
+      {!isPublic ? (
         <FormControl isInvalid={errors.password}>
           <Input
             ref={RoomPasswordRef}
