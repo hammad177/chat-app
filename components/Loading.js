@@ -4,10 +4,13 @@ import { Box, Spinner } from "native-base";
 const Loading = () => {
   return (
     <Box
-      flex={1}
+      w="100%"
+      h="100%"
+      zIndex="1"
       alignItems="center"
       justifyContent="center"
-      bgColor={"gray.300"}
+      bgColor={"#00000030"}
+      position="absolute"
     >
       <Spinner size="lg" />
     </Box>

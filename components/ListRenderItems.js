@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, Box, VStack, Badge } from "native-base";
+import { Text, VStack, Badge, Pressable } from "native-base";
 
-const ListRenderItems = (item) => {
+const ListRenderItems = (item, handelModal) => {
   return (
-    <Box
+    <Pressable
       borderRadius="md"
       borderColor="gray.300"
       borderWidth="1"
@@ -14,6 +14,7 @@ const ListRenderItems = (item) => {
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between"
+      onPress={() => handelModal(item)}
     >
       <VStack>
         <Text fontSize="2xl" color="gray.700">
@@ -26,7 +27,7 @@ const ListRenderItems = (item) => {
       ) : (
         <Badge colorScheme="danger">Private</Badge>
       )}
-    </Box>
+    </Pressable>
   );
 };
 

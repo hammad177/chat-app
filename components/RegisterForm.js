@@ -1,10 +1,14 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Button, FormControl, Input, Stack, Text } from "native-base";
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
   const PasswordRef = useRef();
   const NameRef = useRef();
   const isLogin = type === "LOGIN" ? true : false;
+  const {
+    state: { isSubmitting },
+  } = useContext(GlobalStateContext);
 
   return (
     <Stack space={5} w="100%">
@@ -51,8 +55,8 @@ const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
       </FormControl>
       <Button
         size={"lg"}
-        isLoading={false}
-        isLoadingText="Joining ..."
+        isLoading={isSubmitting}
+        isLoadingText={isLogin ? "Logging In ..." : "Signing Up ..."}
         onPress={handleSubmit}
       >
         <Text color={"#fff"} fontWeight="bold" fontSize={"lg"}>
@@ -63,4 +67,4 @@ const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
   );
 };
 
-export default RegisterForm;
+export default React.memo(RegisterForm);

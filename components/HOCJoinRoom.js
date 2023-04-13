@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { joinPublicRoom, joinPrivateRoom } from "../context/GlobalStateAction";
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const HOCJoinRoom = (OriginalComponent, isPublic) => {
   function NewComponent() {
+    const { dispatch } = useContext(GlobalStateContext);
     // form initial state
     const publicValues = { room_code: "" };
     const privateValues = { ...publicValues, password: "" };
@@ -20,7 +23,8 @@ const HOCJoinRoom = (OriginalComponent, isPublic) => {
     };
 
     const onSubmit = (value, { resetForm }) => {
-      console.log(value);
+      if (isPublic) joinPublicRoom(dispatch, value, resetForm);
+      if (!isPublic) joinPrivateRoom(dispatch, value, resetForm);
     };
 
     const { handleChange, setFieldValue, handleSubmit, values, errors } =

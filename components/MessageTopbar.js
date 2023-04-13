@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { HStack, Text } from "native-base";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { leaveRoom } from "../context/GlobalStateAction";
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const MessageTopbar = () => {
+  const { dispatch } = useContext(GlobalStateContext);
+
   return (
     <HStack
       borderBottomColor="#ddd"
@@ -17,7 +21,12 @@ const MessageTopbar = () => {
       <Text fontSize="2xl" color="#4669b2" isTruncated>
         Room Title Room
       </Text>
-      <AntDesign name="logout" size={26} color="#043e7d" />
+      <AntDesign
+        name="logout"
+        size={26}
+        color="#043e7d"
+        onPress={() => leaveRoom(dispatch)}
+      />
     </HStack>
   );
 };

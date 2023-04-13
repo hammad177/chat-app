@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Button,
   FormControl,
@@ -9,6 +9,7 @@ import {
 } from "native-base";
 import ClipBoardIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Clipboard from "expo-clipboard";
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const JoinRoomForm = ({
   handleChange,
@@ -19,6 +20,9 @@ const JoinRoomForm = ({
   setFieldValue,
 }) => {
   const RoomPasswordRef = useRef();
+  const {
+    state: { isSubmitting },
+  } = useContext(GlobalStateContext);
   return (
     <Stack space={5} w="100%">
       <FormControl isInvalid={errors.room_code}>
@@ -49,7 +53,7 @@ const JoinRoomForm = ({
       ) : null}
       <Button
         size={"lg"}
-        isLoading={false}
+        isLoading={isSubmitting}
         isLoadingText="Joining ..."
         onPress={handleSubmit}
       >
@@ -81,4 +85,4 @@ const ClipBoardButton = ({ setFieldValue }) => {
   );
 };
 
-export default JoinRoomForm;
+export default React.memo(JoinRoomForm);

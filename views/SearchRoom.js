@@ -32,7 +32,7 @@ const SearchRoom = () => {
         <Input
           selectionColor={"#379"}
           size={"lg"}
-          placeholder="Search Room by user email or room name"
+          placeholder="Search Room by room name or room code"
           InputRightElement={<SearchButton searchQuery={searchQuery} />}
           onChangeText={handelChange}
           onSubmitEditing={() => searchQuery()}

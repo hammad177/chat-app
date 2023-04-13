@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { login, signUp } from "../context/GlobalStateAction";
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const HOCRegister = (OriginalComponent, type) => {
   function NewComponent() {
@@ -13,6 +15,7 @@ const HOCRegister = (OriginalComponent, type) => {
       ...LoginValues,
       display_name: "",
     };
+    const { dispatch } = useContext(GlobalStateContext);
 
     const validationSchema = (validationType) => {
       if (validationType === "LOGIN") {
@@ -38,8 +41,9 @@ const HOCRegister = (OriginalComponent, type) => {
       });
     };
 
-    const onSubmit = (value, { resetForm }) => {
-      console.log(`type: ${type}`, value);
+    const onSubmit = async (value, { resetForm }) => {
+      if (type === "LOGIN") return login(dispatch, value, resetForm);
+      if (type === "SIGNUP") return signUp(dispatch, value, resetForm);
     };
 
     const { handleChange, handleSubmit, values, errors } = useFormik({

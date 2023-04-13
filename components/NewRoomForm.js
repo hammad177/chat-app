@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
 import {
   Text,
   Button,
@@ -42,8 +42,7 @@ const NewRoomForm = () => {
   });
   // submit form
   const onSubmit = async (value, { resetForm }) => {
-    // await createRoom(dispatch, value, resetForm);
-    console.log(value);
+    await createRoom(dispatch, value, resetForm);
   };
 
   // init formik hook
@@ -113,7 +112,7 @@ const NewRoomForm = () => {
       </HStack>
       <Button
         size={"lg"}
-        isLoading={state.isLoading}
+        isLoading={state.isSubmitting}
         isLoadingText="Creating ..."
         onPress={handleSubmit}
       >

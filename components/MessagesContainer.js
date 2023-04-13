@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, HStack, Spinner } from "native-base";
 import { FlashList } from "@shopify/flash-list";
 import Messages from "./Messages";
-
-const messages = [1, 0, 1, 1, 0, 0, 1];
+import GlobalStateContext from "../context/GlobalStateContext";
 
 const MessagesContainer = () => {
   const [loadList, setLoadList] = useState(true);
+  const {
+    state: {
+      room: { messages },
+      userId,
+    },
+  } = useContext(GlobalStateContext);
 
   return (
     <Box flex="1">
       <FlashList
         data={messages}
         keyExtractor={(_, i) => i}
-        renderItem={Messages}
+        renderItem={({ item }) => Messages({ item, userId })}
         estimatedItemSize={30}
         scrollEnabled={true}
         inverted={true}

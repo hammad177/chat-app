@@ -59,7 +59,7 @@ exports.publicRoom = async (req, res) => {
       room?.room_users?.push(data);
       await room.save();
     }
-    res.json({ success: true, room_code });
+    res.json({ success: true, room_code, room_name: room?.room_name });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
@@ -104,7 +104,7 @@ exports.privateRoom = async (req, res) => {
       room?.room_users?.push(data);
       await room.save();
     }
-    res.json({ success: true, room_code });
+    res.json({ success: true, room_code, room_name: room?.room_name });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
@@ -125,7 +125,7 @@ exports.leaveRoom = async (req, res) => {
     if (!update.matchedCount && !update.modifiedCount)
       throw { type: ResponseErrorTypes.BAD_REQUEST, message: "request failed" };
 
-    res.json({ status: true, message: "leave room successfully" });
+    res.json({ success: true, message: "leave room successfully" });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
@@ -155,6 +155,7 @@ exports.geyAllRooms = async (req, res) => {
         email: "$user_details.email",
         display_name: "$user_details.display_name",
         createdAt: 1,
+        room_code: 1,
       },
     };
     const sort = { $sort: { createdAt: -1 } };

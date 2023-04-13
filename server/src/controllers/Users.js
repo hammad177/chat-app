@@ -18,7 +18,7 @@ exports.signUp = async (req, res) => {
     user.access_token = access_token;
     await user.save();
 
-    res.status(201).json({ status: true, access_token });
+    res.status(201).json({ success: true, access_token });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
     user.access_token = access_token;
     await user.save();
 
-    res.json({ status: true, access_token });
+    res.json({ success: true, access_token });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
@@ -60,7 +60,7 @@ exports.logout = async (req, res) => {
     const user = await UserModel.findById(req.session_id);
     user.access_token = null;
     await user.save();
-    res.json({ status: true, message: "user logout successfully" });
+    res.json({ success: true, message: "user logout successfully" });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);
