@@ -31,7 +31,7 @@ const MessagesSchema = mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 module.exports = mongoose.model("messages", MessagesSchema);

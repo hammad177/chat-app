@@ -59,6 +59,14 @@ export default (state, action) => {
           messages: [action?.payload, ...state?.room?.messages],
         },
       };
+    case ACTION_TYPE.SET_INIT_MESSAGES:
+      return {
+        ...state,
+        room: {
+          ...state?.room,
+          messages: action?.payload,
+        },
+      };
     case ACTION_TYPE.RELOAD_PREV_STATE:
       return {
         ...state,

@@ -22,6 +22,7 @@
       }
     },
     "android": {
+      "package": "com.expoapp.chatapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

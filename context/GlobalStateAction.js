@@ -177,6 +177,20 @@ export const addMessage = async (dispatch, message) => {
   dispatch({ type: ACTION_TYPE.ADD_MESSAGE, payload: message });
 };
 
+export const setInitMessages = async (dispatch, room_code) => {
+  try {
+    const { data } = await axiosInstance(`/room-messages/${room_code}`);
+    if (data?.success) {
+      return dispatch({
+        type: ACTION_TYPE.SET_INIT_MESSAGES,
+        payload: data?.messages,
+      });
+    }
+  } catch (error) {
+    catchErrors(dispatch, error);
+  }
+};
+
 export const reloadPrevState = async (dispatch) => {
   try {
     const auth_token = await getToken(AUTH_TOKEN_KEY);

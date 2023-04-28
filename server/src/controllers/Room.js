@@ -1,4 +1,5 @@
 const RoomModel = require("../models/Room");
+const MessagesModel = require("../models/Messages");
 const argon2 = require("argon2");
 const { ResponseError, ResponseErrorTypes } = require("../libs");
 
@@ -179,15 +180,29 @@ exports.geyAllRooms = async (req, res) => {
 
 exports.getRoomUsers = async (req, res) => {
   try {
-    const { room_id } = req.body;
+    const { room_id } = req.params;
     const room_details = await RoomModel.findById(room_id).select("room_users");
     if (!room_details)
       throw {
         type: ResponseErrorTypes.BAD_REQUEST,
         message: "failed to proceed request",
       };
-
+    console.log(room_details);
     res.json({ success: true, room_users: room_details?.room_users });
+  } catch (error) {
+    const { status, response } = ResponseError(error);
+    res.status(status).json(response);
+  }
+};
+
+exports.getRoomMessages = async (req, res) => {
+  try {
+    const { room_code } = req.params;
+    const messages = await MessagesModel.find({ sent_to: room_code }).sort({
+      sent_at: -1,
+    });
+
+    res.json({ success: true, messages });
   } catch (error) {
     const { status, response } = ResponseError(error);
     res.status(status).json(response);

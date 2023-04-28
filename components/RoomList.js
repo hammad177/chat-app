@@ -31,38 +31,37 @@ const RoomList = () => {
   const keyExtractor = (item) => item._id.toString();
   return (
     <Box h="90%" mt="20px">
-      {!state?.roomsList?.length && loadList ? (
+      {loadList && (
         <HStack position="absolute" top="40%" w="100%" justifyContent="center">
           <Spinner size="lg" />
         </HStack>
-      ) : (
-        <>
-          {!state?.roomsList?.length && !loadList ? (
-            <HStack
-              position="absolute"
-              top="40%"
-              w="100%"
-              justifyContent="center"
-            >
-              <Text fontSize="lg">No Room Found</Text>
-            </HStack>
-          ) : (
-            <>
-              <FlashList
-                data={state?.roomsList}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                estimatedItemSize={20}
-                scrollEnabled={true}
-                onRefresh={onRefresh}
-                refreshing={isRefresh}
-                onLoad={() => setLoadList(false)}
-              />
-              <JoinRoomModal modal={modal} handelModal={handelModal} />
-            </>
-          )}
-        </>
       )}
+      <>
+        {!state?.roomsList?.length && !loadList ? (
+          <HStack
+            position="absolute"
+            top="40%"
+            w="100%"
+            justifyContent="center"
+          >
+            <Text fontSize="lg">No Room Found</Text>
+          </HStack>
+        ) : (
+          <>
+            <FlashList
+              data={state?.roomsList}
+              renderItem={renderItem}
+              keyExtractor={keyExtractor}
+              estimatedItemSize={20}
+              scrollEnabled={true}
+              onRefresh={onRefresh}
+              refreshing={isRefresh}
+              onLoad={() => setLoadList(false)}
+            />
+            <JoinRoomModal modal={modal} handelModal={handelModal} />
+          </>
+        )}
+      </>
     </Box>
   );
 };

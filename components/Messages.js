@@ -25,7 +25,7 @@ const Messages = ({ item, userId }) => {
           borderTopRightRadius={isCurrentUser ? "none" : "20px"}
           borderBottomLeftRadius={isCurrentUser ? "20px" : "none"}
           maxW="70%"
-          minW="80px"
+          minW="90px"
           position="relative"
           mx="5px"
         >
@@ -39,7 +39,7 @@ const Messages = ({ item, userId }) => {
             right="20px"
             fontSize="11px"
           >
-            {dayjs(item.sent_at).format("hh:mm a")}
+            {dayjs(item?.sent_at).format("hh:mm a")}
           </Text>
         </Pressable>
       </HStack>

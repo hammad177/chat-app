@@ -44,7 +44,7 @@ const RoomSchema = mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 RoomSchema.index({ room_name: "text", room_code: "text" });

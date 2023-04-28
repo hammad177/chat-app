@@ -54,11 +54,13 @@ const InputMessage = () => {
         borderRadius="30px"
         h="100%"
         px="18px"
+        mr="3px"
         onChangeText={(text) => setMessage(text)}
       />
       <IconButton
         variant="solid"
         onPress={sendMessage}
+        // disabled={true}
         background="#4669b2"
         borderRadius="full"
         size="md"
