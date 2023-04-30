@@ -60,6 +60,7 @@ const JoinRoomModal = ({ modal: { open, data }, handelModal }) => {
               secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
+              autoCapitalize="none"
               py="1.5"
               mt="4"
             />

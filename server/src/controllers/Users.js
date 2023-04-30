@@ -5,6 +5,7 @@ const {
   ResponseError,
   ResponseErrorTypes,
 } = require("../libs");
+const { socket } = require("../server");
 
 exports.signUp = async (req, res) => {
   try {
@@ -45,6 +46,7 @@ exports.login = async (req, res) => {
       };
 
     const access_token = createAccessToken({ email, _id: user._id });
+    if (user?.access_token) socket.emit("verify-token", { access_token });
     user.access_token = access_token;
     await user.save();
 

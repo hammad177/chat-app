@@ -30,7 +30,7 @@ const MessagesContainer = () => {
         data={messages}
         keyExtractor={(_, i) => i}
         renderItem={({ item }) => Messages({ item, userId })}
-        estimatedItemSize={30}
+        estimatedItemSize={50}
         scrollEnabled={true}
         inverted={true}
         onLoad={() => setLoadList(false)}

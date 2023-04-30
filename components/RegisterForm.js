@@ -25,6 +25,7 @@ const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
           onSubmitEditing={() =>
             isLogin ? PasswordRef.current.focus() : NameRef.current.focus()
           }
+          autoCapitalize="none"
         />
       </FormControl>
       {!isLogin ? (
@@ -39,6 +40,7 @@ const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
             returnKeyType={"next"}
             blurOnSubmit={false}
             onSubmitEditing={() => PasswordRef.current.focus()}
+            autoCapitalize="none"
           />
         </FormControl>
       ) : null}
@@ -51,6 +53,7 @@ const RegisterForm = ({ handleChange, handleSubmit, values, errors, type }) => {
           onChangeText={handleChange("password")}
           secureTextEntry={true}
           value={values?.password}
+          autoCapitalize="none"
         />
       </FormControl>
       <Button

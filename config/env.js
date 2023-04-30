@@ -1,4 +1,4 @@
-const BASE_URL = "https://bc89-202-47-50-152.ngrok-free.app";
+const BASE_URL = "https://bd3f-202-47-50-152.ngrok-free.app";
 
 export const SOCKET_URL = `${BASE_URL}/socket`;
 

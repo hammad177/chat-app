@@ -1,4 +1,5 @@
 import { ACTION_TYPE } from "./ActionType";
+import { initialState } from "./InitialState";
 
 export default (state, action) => {
   switch (action.type) {
@@ -66,6 +67,12 @@ export default (state, action) => {
           ...state?.room,
           messages: action?.payload,
         },
+      };
+    case ACTION_TYPE.SET_INIT_STATE:
+      return {
+        ...initialState,
+        isSignIn: false,
+        isUserInRoom: false,
       };
     case ACTION_TYPE.RELOAD_PREV_STATE:
       return {

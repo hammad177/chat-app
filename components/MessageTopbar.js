@@ -5,8 +5,12 @@ import { leaveRoom } from "../context/GlobalStateAction";
 import GlobalStateContext from "../context/GlobalStateContext";
 
 const MessageTopbar = () => {
-  const { dispatch } = useContext(GlobalStateContext);
-
+  const {
+    dispatch,
+    state: {
+      room: { name },
+    },
+  } = useContext(GlobalStateContext);
   return (
     <HStack
       borderBottomColor="#ddd"
@@ -19,7 +23,7 @@ const MessageTopbar = () => {
       justifyContent="space-between"
     >
       <Text fontSize="2xl" color="#4669b2" isTruncated>
-        Room Title Room
+        {name}
       </Text>
       <AntDesign
         name="logout"

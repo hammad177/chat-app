@@ -36,6 +36,7 @@ const JoinRoomForm = ({
           returnKeyType={isPublic ? "done" : "next"}
           blurOnSubmit={isPublic ? true : false}
           onSubmitEditing={() => !isPublic && RoomPasswordRef.current.focus()}
+          autoCapitalize="none"
         />
       </FormControl>
       {!isPublic ? (
@@ -48,6 +49,7 @@ const JoinRoomForm = ({
             onChangeText={handleChange("password")}
             secureTextEntry={true}
             value={values.password}
+            autoCapitalize="none"
           />
         </FormControl>
       ) : null}

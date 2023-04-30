@@ -68,6 +68,26 @@ export const logout = async (dispatch) => {
   }
 };
 
+export const forceLogout = async (dispatch, access_token, socket) => {
+  try {
+    const token = await getToken(AUTH_TOKEN_KEY);
+    const room_code = await getToken(ROOM_TOKEN_KEY);
+    if (token && token !== access_token) {
+      if (room_code) {
+        const user_id = await decodeTokenDetails(token);
+        socket.emit("offline-user", { room_code, user_id });
+        await deleteToken(ROOM_TOKEN_KEY);
+      }
+      await deleteToken(AUTH_TOKEN_KEY);
+      await AsyncStorage.clear();
+      dispatch({ type: ACTION_TYPE.SET_INIT_STATE });
+      return ToastMessages.show({ message: "Login with another device" });
+    }
+  } catch (error) {
+    catchErrors(dispatch, error);
+  }
+};
+
 export const joinPublicRoom = async (dispatch, value, resetForm) => {
   try {
     handleSubmitting(dispatch, true);

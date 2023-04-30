@@ -8,12 +8,12 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const PORT = 5000;
 
+exports.socket = messageSocket(io);
+
 app.use(cors());
 app.use(express.json());
 app.use("/api", require("./routes/Room"));
 app.use("/api", require("./routes/Users"));
-
-messageSocket(io);
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

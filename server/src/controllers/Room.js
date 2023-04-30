@@ -155,11 +155,11 @@ exports.geyAllRooms = async (req, res) => {
         is_public: 1,
         email: "$user_details.email",
         display_name: "$user_details.display_name",
-        createdAt: 1,
+        created_at: 1,
         room_code: 1,
       },
     };
-    const sort = { $sort: { createdAt: -1 } };
+    const sort = { $sort: { created_at: -1 } };
     const limit = { $limit: 50 };
 
     const rooms = await RoomModel.aggregate([
@@ -187,7 +187,7 @@ exports.getRoomUsers = async (req, res) => {
         type: ResponseErrorTypes.BAD_REQUEST,
         message: "failed to proceed request",
       };
-    console.log(room_details);
+
     res.json({ success: true, room_users: room_details?.room_users });
   } catch (error) {
     const { status, response } = ResponseError(error);
