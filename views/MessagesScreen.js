@@ -6,7 +6,7 @@ import MessagesContainer from "../components/MessagesContainer";
 import InputMessage from "../components/InputMessage";
 import { SocketContext } from "../context/SocketContext";
 import GlobalStateContext from "../context/GlobalStateContext";
-import { addMessage } from "../context/GlobalStateAction";
+import { addMessage, deleteMessage } from "../context/GlobalStateAction";
 
 const MessagesScreen = () => {
   const socket = useContext(SocketContext);
@@ -24,6 +24,10 @@ const MessagesScreen = () => {
     socket.on("receive-message", (response) => {
       addMessage(dispatch, response);
     });
+    socket.on("message-deleted", async ({ message_id }) => {
+      deleteMessage(dispatch, message_id);
+    });
+
     return () => {
       socket.disconnect();
     };

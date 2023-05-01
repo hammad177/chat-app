@@ -2,8 +2,13 @@ import React from "react";
 import { Text, View, Avatar, HStack, Pressable } from "native-base";
 import dayjs from "dayjs";
 
-const Messages = ({ item, userId }) => {
-  const isCurrentUser = userId !== item?.sent_by;
+const Messages = ({ item, userId, handleActionModal }) => {
+  const isCurrentUser = userId === item?.sent_by;
+  const openModal = (item) => {
+    if (isCurrentUser) {
+      handleActionModal({ room_code: item?.sent_to, message_id: item?._id });
+    }
+  };
   return (
     <View
       alignItems={isCurrentUser ? "flex-end" : "flex-start"}
@@ -28,9 +33,12 @@ const Messages = ({ item, userId }) => {
           minW="90px"
           position="relative"
           mx="5px"
+          disabled={item?.is_deleted}
+          opacity={item?.is_deleted ? 0.8 : 1}
+          onLongPress={() => openModal(item)}
         >
           <Text color={isCurrentUser ? "#FFD" : "#444"} pb="10px">
-            {item?.message}
+            {!item?.is_deleted ? item?.message : "this message is deleted"}
           </Text>
           <Text
             color={isCurrentUser ? "#FFD" : "#444"}

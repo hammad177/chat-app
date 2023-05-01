@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { NavigationContainer, useLinkTo } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import ToastMessages from "./components/ToastMessages";
 import GlobalStateContext from "./context/GlobalStateContext";
 import { forceLogout, reloadPrevState } from "./context/GlobalStateAction";
@@ -15,13 +15,15 @@ const Root = () => {
     state: { isSignIn, isUserInRoom, isLoading },
   } = useContext(GlobalStateContext);
   const socket = useContext(SocketContext);
-  const navigate = useLinkTo();
 
   useEffect(() => {
     reloadPrevState(dispatch);
 
     socket.on("verify-token", async ({ access_token }) => {
       await forceLogout(dispatch, access_token, socket);
+    });
+    socket.on("error", async (message) => {
+      ToastMessages.show({ message: "failed to proceed", status: "error" });
     });
 
     return () => {

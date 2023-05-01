@@ -60,6 +60,22 @@ export default (state, action) => {
           messages: [action?.payload, ...state?.room?.messages],
         },
       };
+    case ACTION_TYPE.DELETE_MESSAGES:
+      return {
+        ...state,
+        room: {
+          ...state?.room,
+          messages: state?.room?.messages?.map((msg) => {
+            if (msg?._id === action?.payload) {
+              return {
+                ...msg,
+                is_deleted: true,
+              };
+            }
+            return msg;
+          }),
+        },
+      };
     case ACTION_TYPE.SET_INIT_MESSAGES:
       return {
         ...state,

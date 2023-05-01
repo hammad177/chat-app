@@ -197,6 +197,10 @@ export const addMessage = async (dispatch, message) => {
   dispatch({ type: ACTION_TYPE.ADD_MESSAGE, payload: message });
 };
 
+export const deleteMessage = async (dispatch, message_id) => {
+  dispatch({ type: ACTION_TYPE.DELETE_MESSAGES, payload: message_id });
+};
+
 export const setInitMessages = async (dispatch, room_code) => {
   try {
     const { data } = await axiosInstance(`/room-messages/${room_code}`);
