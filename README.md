@@ -12,7 +12,7 @@ This is a simple chat application built using React Native Expo and server is bu
 - Ability to create public or private chat rooms
 - Ability to join public or private chat rooms using the room code
 - Real-time chat using Socket.io
-- private room must need the room password
+- Private rooms must need the room password
 
 
 ## Installation
