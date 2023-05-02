@@ -10,6 +10,7 @@ const modalInitState = {
   open: false,
   room_code: "",
   message_id: "",
+  message: "",
 };
 
 const MessagesContainer = () => {

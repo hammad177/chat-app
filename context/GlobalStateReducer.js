@@ -76,6 +76,23 @@ export default (state, action) => {
           }),
         },
       };
+    case ACTION_TYPE.EDIT_MESSAGES:
+      return {
+        ...state,
+        room: {
+          ...state?.room,
+          messages: state?.room?.messages?.map((msg) => {
+            if (msg?._id === action?.payload?.message_id) {
+              return {
+                ...msg,
+                is_edit: true,
+                message: action?.payload?.message,
+              };
+            }
+            return msg;
+          }),
+        },
+      };
     case ACTION_TYPE.SET_INIT_MESSAGES:
       return {
         ...state,

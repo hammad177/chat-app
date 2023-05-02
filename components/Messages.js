@@ -6,7 +6,11 @@ const Messages = ({ item, userId, handleActionModal }) => {
   const isCurrentUser = userId === item?.sent_by;
   const openModal = (item) => {
     if (isCurrentUser) {
-      handleActionModal({ room_code: item?.sent_to, message_id: item?._id });
+      handleActionModal({
+        room_code: item?.sent_to,
+        message_id: item?._id,
+        message: item?.message,
+      });
     }
   };
   return (
@@ -37,7 +41,22 @@ const Messages = ({ item, userId, handleActionModal }) => {
           opacity={item?.is_deleted ? 0.8 : 1}
           onLongPress={() => openModal(item)}
         >
-          <Text color={isCurrentUser ? "#FFD" : "#444"} pb="10px">
+          {item?.is_edit ? (
+            <Text
+              color={isCurrentUser ? "#FFD" : "#444"}
+              position="absolute"
+              top="5px"
+              left="15px"
+              fontSize="11px"
+            >
+              edited
+            </Text>
+          ) : null}
+          <Text
+            color={isCurrentUser ? "#FFD" : "#444"}
+            pb="10px"
+            pt={item?.is_edit ? "10px" : "0px"}
+          >
             {!item?.is_deleted ? item?.message : "this message is deleted"}
           </Text>
           <Text

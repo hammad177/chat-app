@@ -41,6 +41,19 @@ exports.messageSocket = (io) => {
         socket.to(room_code).emit("error", error?.message);
       }
     });
+    socket.on("edit-message", async ({ room_code, message_id, message }) => {
+      try {
+        const update = await MessageModel.updateOne(
+          { room_code, _id: message_id },
+          { $set: { is_edit: true, message } }
+        );
+        if (update.matchedCount && update.modifiedCount) {
+          socket.to(room_code).emit("message-edited", { message_id, message });
+        }
+      } catch (error) {
+        socket.to(room_code).emit("error", error?.message);
+      }
+    });
   });
 
   return io.of("/socket");
